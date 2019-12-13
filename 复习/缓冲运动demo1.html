@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+    <style>
+    .wrapper{
+        position: absolute;
+        left: -400px;
+        top: 0px;
+        background: pink;
+        width: 400px;
+        height: 150px;
+    }
+    .wrapper .son{
+        position: absolute;
+        right: -100px;
+        top: 0px;
+        width: 100px;
+        height: 150px;
+        background: deeppink;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="son"></div>
+    </div>
+    <script>
+       var oDivWrapper = document.getElementsByTagName('div')[0];
+       var timer = null;
+
+       //将事件绑定在父元素上，通过事件冒泡给子元素
+       oDivWrapper.onmouseenter = function() {
+           startMove(this, 0)
+       }
+       oDivWrapper.onmouseleave = function () {
+           startMove(this, -400)
+       }
+
+       function startMove(obj, target) {
+            clearInterval(timer);
+            var iSpeed;
+            timer = setInterval(function() {
+                iSpeed = (target - obj.offsetLeft) / 7;
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                if(obj.offsetLeft === target){
+                    clearInterval(timer);
+                }else {
+                    obj.style.left = obj.offsetLeft + iSpeed + 'px';
+                }
+
+            },30)
+        }
+    
+
+    </script>
+</body>
+</html>

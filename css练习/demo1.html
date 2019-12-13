@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+
+    </head>
+    <body>
+        <div id="one">123</div>
+
+        <button id="myBtn" onclick="console.log(this.id)">点击</button>
+
+        <script>
+
+            var oDiv = document.getElementById('one');
+            function hello() {
+                console.log('Hello World!')
+            }
+            oDiv.addEventListener('click', hello, false);
+
+            var event = new Event('click');
+            oDiv.dispatchEvent(event);
+
+
+            // 重绘代价高
+            // function doubleHeight(element) {
+            //     var currenHeight = element.clientHeight;
+            //     element.style.height = (currenHeight * 2) + 'px';
+            // }
+            // all_my_elements.forEach(doubleHeight);
+
+            // 重绘代价低
+            // function doubleHeight(element) {
+            //     var currenHeight = element.clientHeight;
+            //     window.requestAnimationFrame(function() {
+            //         element.style.height = (currenHeight * 2) + 'px';
+            //     });
+            // }
+            // all_my_elements.forEach(doubleHeight);
+
+
+            // XMLHttpRequest例子
+            // var xhr = new XMLHttpRequest();
+            // xhr.onreadystatechange = function() {
+            //     // 通信成功是，状态值为4
+            //     if(xhr.readyState === 4){
+            //         if(xhr.status === 200){
+            //             console.log(xhr.responseText);
+            //         }else {
+            //             console.log(xhr.statusText);
+            //         }
+            //     }
+            // }
+            //
+            // xhr.onreror = function(e) {
+            //     console.log(xhr.statusText);
+            // }
+            //
+            // xhr.open('GET', '/endpoint', true);
+            // xhr.send(null);
+
+
+            // return例子
+            function counter() {
+                for (var i = 1; ; i++) {
+                    console.log(i + 'a');
+                    if(i === 5) {
+                        return ;
+                    }
+                    console.log(i + 'b')
+                }
+                console.log(i + 'c');
+            }
+            counter();
+
+
+
+        </script>
+    </body>
+</html>

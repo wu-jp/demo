@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name: 'wjp',
+            age: 20,
+            __proto__: {
+                sex: 'male',
+                __proto__: {
+                    lastName: 'wu'
+                }
+            }
+        }
+
+        for (let prop in obj) {
+            console.log(prop)
+        }
+
+        var obj1 = {}
+        obj1.name = 'zhangsan'
+        console.log(obj1)
+
+
+        // 给obj3 添加一个name属性
+        // var obj3 = {};
+        // var tempValue = '';
+        // Object.defineProperty(obj3, 'name', {
+        //     value: 'wjp',
+        //     writable: true,  // 是否可写
+        //     configurable: true, // 是否可配置,如deleat
+        //     enumerable: true,  // 是否可遍历
+        //     // get: function () {       
+        //     //     return tempValue;
+        //     // },
+        //     // set: function (newValue) {
+        //     //     tempValue = newValue;
+        //     // }
+        // })
+
+        // 简写
+        var obj2 = {
+            tempValue: 'duyi',
+            get name () {
+                return this.tempValue;
+            },
+            set name (newValue) {
+                this.tempValue = newValue;
+            }
+        }
+        console.log(obj2.name)  // duyi
+        obj2.name = 10
+        console.log(obj2.name)  // 10
+
+    </script>
+</body>
+</html>

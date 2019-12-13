@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    webpack构建的项目是不可以识别es6语法，需要用babel构建es6语法环境，将es6语法转换为es5
+    <script>
+        // es5求和函数
+        // arguments为实参列表
+        function sum() {
+            let sumNumber = 0
+            for(let i = 0; i < arguments.length; i++) {
+                sumNumber += arguments[i];
+            };
+            return sumNumber;
+        }
+        console.log(sum(1,2,3))
+        
+
+        // es6求和函数
+        // ...为写场景时为收集作用--> []
+        function _sum(...arg) {
+            let sumNumber = 0;
+            arg.forEach(function (ele) {
+                sumNumber += ele
+            });
+            return sumNumber;
+        }
+        console.log(_sum(2,3,4))
+
+
+        // ...运算符
+        function text (a, b, ...arg) {
+            console.log(a, b, arg)
+        }
+        text(10, 20, 'a', 'b', 'c')
+        text(1, 2, 'q', 'w', 'e', 'r')
+
+
+
+        // 题：去掉最高分和最低分求平均值
+        function avearge (...arg) {
+            // 排序
+            arg.sort(function (a, b) {
+                return a - b;
+            });
+            // 去掉最高最低
+            arg.pop();
+            arg.shift();
+            // ...为读场景时为展开作用
+            return computedScore(...arg);
+            // return computedScore.apply(this, arg);
+        }
+        function computedScore (...arg) {
+            let sum = 0;
+            arg.forEach(function (ele) {
+                sum += ele;
+            });
+            return sum / arg.length;
+        }
+        console.log(avearge(67, 88, 45, 90, 89, 95, 65, 98, 66));
+    </script>
+</body>
+</html>

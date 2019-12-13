@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构(结构化赋值)</title>
+</head>
+<body>
+    <script>
+        // 对象解构
+        let arr1 = {
+            name: 'wjp',
+            age: 23
+        }
+        let {name: oName, age: oAge} = arr1
+        let {name, age} = arr1
+        console.log(oName, oAge)
+        console.log(name, age)
+        
+        // 数组解构
+        let arr2 = [1, 2, 3, 4]
+        // let {0: x, 1: y, 2: z, 3: o} = arr2
+        let [x, y, z, o] = arr2
+        console.log(x, y, z, o)
+
+        // 混合解构 + 默认值
+        let arr3 = [1, 2, 3, {tqname: 'tq', tqage: 18}]
+        let [,,,{tqname, tqage}] = arr3
+        console.log(tqname, tqage)
+
+    </script>
+</body>
+</html>

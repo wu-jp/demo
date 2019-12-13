@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 整体 */
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            margin: 150px auto 0;
+            border: 1px solid #000;
+            overflow: hidden;
+        }
+
+        .wrapper .box {
+            position: absolute;
+            width: 3000px;
+            height: 300px;
+        }
+
+        .wrapper .box li {
+            width: 500px;
+            height: 300px;
+            float: left;
+        }
+
+        .wrapper .box li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 按钮 */
+
+        .wrapper .btn {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 22px;
+            line-height: 20px;
+            color: #fff;
+            background-color: rgb(146, 139, 139);
+            text-align: center;
+            opacity: 0.2;
+            margin-top: -11px;
+            cursor: pointer;
+        }
+
+        .wrapper:hover .btn {
+            opacity: 0.5;
+        }
+
+        .wrapper .btn-left {
+            left: 10px;
+        }
+
+        .wrapper .btn-right {
+            right: 10px;
+        }
+
+        /* 小圆点 */
+
+        .wrapper .po {
+            position: absolute;
+            width: 100%;
+            bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .wrapper .po span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .wrapper .po .color {
+            background-color: #f40;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="box">
+            <li>
+                <img src="./img/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/2.png" alt="">
+            </li>
+            <li>
+                <img src="./img/3.png" alt="">
+            </li>
+            <li>
+                <img src="./img/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/5.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/1.jpg" alt="">
+            </li>
+        </ul>
+
+        <div class="btn btn-left">&lt;</div>
+        <div class="btn btn-right">&gt;</div>
+        <div class="po">
+            <span class="color"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script>
+
+        var timer = null;
+        var oBox = document.getElementsByClassName('box')[0];
+        var moveWidth = oBox.children[0].offsetWidth;
+        var num = oBox.children.length - 1;
+        var btnLeft = document.getElementsByClassName('btn-left')[0];
+        var btnRight = document.getElementsByClassName('btn-right')[0];
+        var lock = true;
+        var index = 0;
+        var oSpanArr = document.getElementsByTagName('span');
+
+        btnLeft.onclick = function () {
+            autoMove('right->left');
+        }
+        btnRight.onclick = function () {
+            autoMove('left->right');
+        }
+
+        function autoMove(direction) {
+            if (lock) {
+                lock = false;
+                clearTimeout(timer);
+                if (!direction || direction == 'left->right') {
+                    index++;
+                    if(index == 5) {
+                        index = 0;
+                    }
+                    changeIndex(index);
+                    startMove(oBox, { left: oBox.offsetLeft - moveWidth }, function () {
+                        if (oBox.offsetLeft == - num * moveWidth) {
+                            index = 0;
+                            oBox.style.left = '0px';
+                        }
+                        timer = setTimeout(autoMove, 1000);
+                        lock = true;
+                    })
+                } else if (direction == 'right->left') {
+                    if (oBox.offsetLeft == 0) {
+                        oBox.style.left = - num * moveWidth + 'px';
+                        index = num;
+                    }
+                    index--;
+                    changeIndex(index);
+                    startMove(oBox, { left: oBox.offsetLeft + moveWidth }, function () {
+                        timer = setTimeout(autoMove, 1000);
+                        lock = true;
+                        
+                    })
+                }
+            }
+
+        }
+
+        function changeIndex(index) {
+            for (var i = 0; i < oSpanArr.length; i++) {
+                oSpanArr[i].className = '';
+            }
+            oSpanArr[index].className = 'color';
+        } 
+
+        for (var i = 0; i < oSpanArr.length; i++) {
+            (function (myIndex) {
+                oSpanArr[i].onclick = function () {
+                   lock = false;
+                   clearTimeout(timer);
+                   index = myIndex;
+                   changeIndex(index);
+                   startMove(oBox, {left: - index * moveWidth}, function () {
+                       lock = true;
+                       timer = setTimeout(autoMove, 1500);
+                       
+                   })
+                }
+            })(i)
+        }
+
+        timer = setTimeout(autoMove, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(obj, false)[attr];
+            }
+        }
+
+        function startMove(obj, data, func) {
+            clearInterval(obj.timer);
+            var iSpeed;
+            var iCur;
+            var name;
+            startTimer = obj.timer = setInterval(function () {
+                var bStop = true;
+                for (var attr in data) {
+                    if (attr === 'opacity') {
+                        name = attr;
+                        iCur = parseFloat(getStyle(obj, attr)) * 100;
+                    } else {
+                        iCur = parseInt(getStyle(obj, attr));
+                    }
+                    iSpeed = (data[attr] - iCur) / 8;
+
+                    if (iSpeed > 0) {
+                        iSpeed = Math.ceil(iSpeed);
+                    } else {
+                        iSpeed = Math.floor(iSpeed);
+                    }
+
+                    if (attr === 'opacity') {
+                        obj.style.opacity = (iCur + iSpeed) / 100;
+                    } else {
+                        obj.style[attr] = iCur + iSpeed + 'px';
+                    }
+                    if (Math.floor(Math.abs(data[attr] - iCur)) != 0) {
+                        bStop = false;
+                    }
+                }
+                if (bStop) {
+                    clearInterval(obj.timer);
+                    if (name === 'opacity') {
+                        obj.style.opacity = data[name] / 100;
+                    }
+                    func();
+                }
+            }, 30);
+        }
+
+
+    </script>
+
+</body>
+
+</html>

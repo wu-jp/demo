@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    class为关键字
+    <script>
+        // ES6
+        class Plane {
+            static alive () {
+                return true
+            }
+            constructor (name) {
+                this.name = name || '小飞机';
+                this.blood = 1000
+            }
+            fly () {
+                console.log('feifei')
+            }
+        }
+
+
+        class AttackPlane extends Plane {
+            constructor (name) {
+                super(name);
+                this.logo = 'wjp'
+            }
+            dan () {
+                console.log('biubiubiu')
+            }
+        }
+        let oAP = new AttackPlane ('攻击机')
+
+
+        // ES5实现ES6的class功能
+        // 1.class构造的函数不可以直接使用 必须要配合new操作        
+        // function _classCallCheck (_this, constructor) {
+        //     if(!(_this instanceof constructor)) {
+        //         throw "TypeError: Class constructor Plane cannot be invoked without 'new'";
+        //     }
+        // }
+        // function Plane () {
+        //     _classCallCheck(this, Plane)
+        // }
+        // Plane()
+
+    </script>
+</body>
+</html>

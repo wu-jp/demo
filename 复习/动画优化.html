@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>   
+    <div id="btn"></div>
+    <script>
+
+        // //利用计时器做动画
+        // var oBtn = document.getElementById('btn');
+        // var timer;
+        // oBtn.onclick = function(){
+        //     move();
+        // }
+        // function move (){
+        //     oBtn.style.left = oBtn.offsetLeft + 10 + 'px';
+        //     if(oBtn.offsetLeft >= 500) {
+        //         clearTimeout(timer);
+        //         oBtn.style.left = '500px'
+        //     }else{
+        //         timer = setTimeout(() => {
+        //             move();
+        //         }, 10);
+        //     }
+        // }
+        
+
+        //利用requesAnimationFrame()做动画
+        // 1、页面刷新前执行一次
+        // 2、1000ms 60fps -> 16ms
+        // 3、cancelAnimationFrame ： 清除
+        // 4、用法和 setTimeout类似
+        // 5、兼容性
+
+        window.requestAnimationFrame = (function(){
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   function(callback){
+                       window.setTimeout(callback, 1000/60)
+                   } 
+        })();
+
+        window.cancelAnimationFrame = (function() {
+            return window.cancelAnimationFrame ||
+                   window.webkitCancelAnimationFrame ||
+                   window.mozCancelAnimationFrame ||
+                   function(id){
+                       window.clearTimeout(id)
+                   }
+        })();
+        var oBtn = document.getElementById('btn');
+        var req;
+        oBtn.onclick = function(){
+            move();
+        }
+        function move (){
+            oBtn.style.left = oBtn.offsetLeft + 10 + 'px';
+            if(oBtn.offsetLeft >= 500) {
+                cancelAnimationFrame(req);
+                oBtn.style.left = '500px'
+            }else{
+                req = requestAnimationFrame(move)
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

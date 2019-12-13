@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 40px;
+            background-color: rebeccapurple;
+            opacity: 1;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        var oDivArr = document.getElementsByTagName('div');
+        var timer = null;
+        oDivArr[0].onmouseenter = function () {
+            startMove(this, 800, 'width')
+        }
+        oDivArr[0].onmouseleave = function () {
+            startMove(this, 150, 'width')
+        }
+
+        oDivArr[1].onmouseenter = function () {
+            startMove(this, 400, 'height')
+        }
+        oDivArr[1].onmouseleave = function () {
+            startMove(this, 150, 'height')
+        }
+
+        oDivArr[2].onmouseenter = function () {
+            startMove(this, 0.5, 'opacity')
+        }
+        oDivArr[2].onmouseleave = function () {
+            startMove(this, 1, 'opacity')
+        }
+
+        oDivArr[3].onmouseenter = function () {
+            startMove(this, 40, 'borderWidth')
+        }
+        oDivArr[3].onmouseleave = function () {
+            startMove(this, 1, "borderWidth")
+        }
+
+        function getStyle(obj, styleProp) {
+
+            if (obj.currentStyle) {
+                return obj.currentStyle[styleProp];
+            } else {
+                return window.getComputedStyle(obj, null)[styleProp];
+            }
+        }
+
+        function startMove(obj, target, sty) {
+            clearInterval(obj.timer);
+            var iSpeed,
+                iCur;
+            obj.timer = setInterval(function () {
+
+                if (sty == 'opacity') {
+                    iCur = parseFloat(getStyle(obj, sty)) * 100;
+                } else {
+                    iCur = parseInt(getStyle(obj, sty))
+                }
+                
+                if(sty == 'opacity') {
+                    iSpeed = ((target * 100) - iCur) / 7;
+                }else {
+                    iSpeed = (target  - iCur) / 7;
+                }
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+                if (iCur === target) {
+                    clearInterval(obj.timer);
+                } else {
+                    if (sty == 'opacity') {
+                        obj.style.opacity = (iCur + iSpeed) / 100;
+                    } else {
+                        obj.style[sty] = iCur + iSpeed + 'px';
+                    }
+                }
+
+            }, 30)
+        }    
+    </script>
+</body>
+
+</html>

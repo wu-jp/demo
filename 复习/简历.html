@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <ul id="list"></ul>
+    <script>
+        //圣杯模式（继承）
+        var inherit = (function() {
+            var F = function() {};
+            return function (Target, Origin) {
+                F.prototype = Origin.prototype;
+                Target.prototype = new F();
+                Target.prototype.constuctor = Target;    //原型上的对象是由Target构造函数构造出来的
+                Target.prototype.uber = Origin.prototype;  //Target的原型的超类指向 Origin的原型
+            }
+        }());
+        function Father() {};
+        function Son() {};
+        Father.prototype.lastname = 'wu';
+        inherit(Son, Father);
+        var son = new Son();
+        console.log(son.lastname);
+
+        //深度克隆
+        //步骤：1. 遍历对象                方法：for(var prop in obj) 
+        //     2.  判断是不是原始值        方法：typeof()  object为引用值，否则为原始值。 （null）
+        //     3.  判断是数组还是对象      三种方法：1.toString  2.instanceof  3.constructor
+        //     4.  建立相应的数组或对象
+        //     5.  递归
+        //克隆函数封装         
+        function deepClone(origin, target) {                 // origin为原始对象  target为需要克隆的对象
+            var target = target || {},
+                toStr = Object.prototype.toString,
+                arrStr = "[object Array]";
+            for (var prop in origin) {                    // 1. 遍历对象    方法：for(var prop in obj) 
+                if (origin.hasOwnPropert(prop)) {                  // 为了不遍历原型上的属性
+                    if (origin[prop] !== "null" && typeof (origin[prop]) == 'object') {      // 2.  判断是不是原始值        方法：typeof()  object为引用值，否则为原始值。 （null）
+                        if (toStr.call(origin[prop]) == arrStr) {                 // 3.  判断是数组还是对象      三种方法：1.toString  2.instanceof  3.constructor
+                            target[prop] = [];                   //     4.  建立相应的数组或对象
+                        } else {
+                            target[prop] = {};
+                        }                                        
+                        deepClone(origin[prop], target[prop]);             //      5.   递归
+                    } else {
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+        
+        //封装ajax兼容性写法
+        function ajaxFunc(method, url, data, callback, flag) {
+            var xhr = null;
+            if(window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            }else (
+                xhr = new ActiveXObject('Microsoft.XMLHttp')
+            )
+            method = method.toUpperCase();  //将传进来的method值都转成大写，防止传参错误
+            if(method == 'GET') {
+                xhr.open(mether, url + '?' + data, flag);
+                xhr.send();
+            }else if(method == 'POST') {
+                xhr.open(method, url, flag);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+                xhr.send(data);
+            }
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState == 4) {
+                    if(xhr.Status == 200) {
+                        callback(xhr.responseText)
+                    }
+                }
+            }
+        }
+        function showList(data) {
+            var value = JSON.parse(data);
+            console.log(value)
+        }
+
+        //原生jsonp跨域
+        //动态创建script标签，添加src属性，异步加载
+        var url = "http://1234.com/json?wd=123&callback=aa"; //
+        var script = document.createElement('script');
+        script.setAttribute('src', url);
+        document.body.appendChild('script')
+        function aa(data) {
+            console.log(data)
+        }
+
+        
+        //Jq的jsonp跨域
+        $(document).ready(function() {
+            $.ajax({
+                type : "get",
+                async : false,
+                url : "http://1234.com/json",
+                dataType : "jsonp",
+                jsonp : "callback",  //请求php的参数名
+                jsonpCallback : "aa",  //要执行的回调函数
+                sueecss : function(data) {
+                    console.log(data)
+                }
+            })
+        })
+        function aa(data) {
+            console.log(data)
+        }
+
+        //New操作符
+        function Pet() {}
+	    var tom = new Pet()
+        //new创建一个对象都进行了那些操作？
+        //、创建一个空对象，用this变量引用该对象并继承该函数的原型
+        //、属性和方法加入到this的引用对象中
+        //、新创建的对象由this所引用，并且最后隐式的返回this
+        //过程模拟
+        function newObj(Fun, arguments) {
+            var o = {};
+            if(Fun && typeof Fun === "function"){
+                o.__proto__ == Fun.prototype;
+                Fun.apply(o, arguments);
+                return o;
+            }
+        }
+        //如果构造函数内部由return语句的情况，如果reture后面跟着一个对象，new命令返回retuen指定的对象，否者不管return语句，直接返回this。
+        var Pet = function(name) {
+            this.name = name;
+            return {notInstance:"blabla"}
+        }
+        var cat = new Pet("tom");
+        cat.name  //undefined
+        cat.notInstance   //blabla
+
+
+        //DOM操作
+        //<ul id="list"></ul>  往ul里动态插入三个li 内容为插入的顺序
+        (() => {
+            var ndContainer = document.getElementById('list');
+            if(!ndContainer) {
+                return;
+            }
+            for(var i = 0; i < 3; i++){
+                var ndItem = document.createElement('li');
+                ndItem.innerText = i + 1;
+                ndContainer.appendChild(ndItem);
+            }
+        })();
+        //绑定点击事件alert当前的内容
+        (() => {
+            var ndContainer = document.getElementById('list');
+            if(!ndContainer) {
+                return;
+            }
+            for (let i = 0; i < 3; i++) {
+                const ndItem = document.createElement('li');
+                ndItem.innerText = i + 1;
+                ndItem.addEventListener('click', function () {
+                    alert(i);
+                });
+                ndContainer.appendChild(ndItem);
+            }
+        })();
+        //或者
+        (() => {
+            var ndContainer = document.getElementById('list');
+            if(!ndContainer) {
+                return;
+            }
+            for (var i = 0; i < 3; i++) {
+                const ndItem = document.createElement('li');
+                ndItem.innerText = i + 1;
+                ndItem.addEventListener('click', function () {
+                    alert(this.innerText);
+                });
+                ndContainer.appendChild(ndItem);
+            }
+        })();
+        //插入300个 数据量变大，利用事件委托，将事件绑定在ul上，利用事件冒泡
+        (() => {
+            var ndContainer = document.getElementById('list');
+            if (!ndContainer) {
+                return;
+            }
+
+            for (let i = 0; i < 300; i++) {
+                const ndItem = document.createElement('li');
+                ndItem.innerText = i + 1;
+                ndContainer.appendChild(ndItem);
+            }
+
+            ndContainer.addEventListener('click', function (e) {
+                const target = e.target;
+                if (target.tagName === 'LI') {
+                    alert(target.innerHTML);
+                }
+            });
+        })();
+        //插入30000个 
+        (() => {
+            const ndContainer = document.getElementById('js-list');
+            if (!ndContainer) {
+                return;
+            }
+
+            const total = 30000;
+            const batchSize = 4; // 每批插入的节点次数，越大越卡
+            const batchCount = total / batchSize; // 需要批量处理多少次
+            let batchDone = 0;  // 已经完成的批处理个数
+
+            function appendItems() {
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < batchSize; i++) {
+                    const ndItem = document.createElement('li');
+                    ndItem.innerText = (batchDone * batchSize) + i + 1;
+                    fragment.appendChild(ndItem);
+                }
+
+                // 每次批处理只修改 1 次 DOM
+                ndContainer.appendChild(fragment);
+
+                batchDone += 1;
+                doBatchAppend();
+            }
+
+            function doBatchAppend() {
+                if (batchDone < batchCount) {
+                    window.requestAnimationFrame(appendItems);
+                }
+            }
+
+            // kickoff
+            doBatchAppend();
+
+            ndContainer.addEventListener('click', function (e) {
+                const target = e.target;
+                if (target.tagName === 'LI') {
+                    alert(target.innerHTML);
+                }
+            });
+        })();
+        
+
+        
+    </script>
+</body>
+</html>

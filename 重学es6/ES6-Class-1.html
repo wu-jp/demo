@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    // 回顾ES5
+    function Plane (name) {
+        // {}
+        this.name = name || '小飞机'
+        this.blood = 1000;
+    }
+    Plane.prototype.fly = function (){
+        console.log(this.name)
+    }
+    var oPlane = new Plane()
+
+    
+    // AttackPlane.prototype.__proto__ = Plane.prototype;
+    // setPrototypeOf方法,类似圣杯模式继承
+    Object.setPrototypeOf(AttackPlane.prototype, Plane.prototype);
+    AttackPlane.prototype.dan = function () {
+        console.log('biubiubiu')
+    }
+    function AttackPlane (name) {
+        Plane.call(this, name)
+    }
+    var oAP = new AttackPlane('攻击机')
+
+
+
+
+    </script>
+</body>
+</html>

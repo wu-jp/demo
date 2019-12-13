@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .wrapper{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>{{money}}$</div>相当于
+        <div>{{usd}}￥</div>
+        <div v-html='htmlVal'></div>
+        <div class="wrapper" @click="cli"></div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                flag: false,
+                money: 1,
+                htmlVal: '<span style="color: red">abc</span>',
+                show: 'content'
+            },
+            // template: '<p>hello</p>',
+            computed: {    //计算属性
+                usd(){
+                    return this.money * 6
+                }
+            },
+            watch: {    //监听属性
+                msg(newVal, oldVal){
+                    console.log('msg is changed');
+                    console.log(newVal, oldVal)
+                }
+            },
+            methods: {   //事件函数
+                cli(e) {
+                    console.log(e.target)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

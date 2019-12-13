@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 继承：圣杯模式
+        var inherit = (function () {
+            var F = function () {};
+            return function (Target, Origin) {
+                F.prototype = Origin.prototype;
+                Target.prototype = new F();
+                Target.prototype.constuctor = Target;
+                Target.prototype.uber = Origin.prototype;
+            }
+        }());
+
+        Father.prototype.lastName = 'wu';
+        function Father() {};
+        inherit(Son, Father);
+        function Son() {};
+        inherit(Son, Father);
+        var son = new Son();
+        console.log(son.lastName);
+
+
+        //  #深度克隆  
+        //步骤：1. 遍历对象                方法：for(var prop in obj) 
+        //     2.  判断是不是原始值        方法：typeof()  object为引用值，否则为原始值。 （null）
+        //     3.  判断是数组还是对象      三种方法：1.toString  2.instanceof  3.constructor
+        //     4.  建立相应的数组或对象
+        //     5.  递归
+        //克隆函数封装         
+        function deepClone(origin, target) {                 // origin为原始对象  target为需要克隆的对象
+            var target = target || {},
+                toStr = Object.prototype.toString,
+                arrStr = "[object Array]";
+            for (var prop in origin) {                    // 1. 遍历对象    方法：for(var prop in obj) 
+                if (origin.hasOwnPropert(prop)) {                  // 为了不遍历原型上的属性
+                    if (origin[prop] !== "null" && typeof (origin[prop]) == 'object') {      // 2.  判断是不是原始值        方法：typeof()  object为引用值，否则为原始值。 （null）
+                        if (toStr.call(origin[prop]) == arrStr) {                 // 3.  判断是数组还是对象      三种方法：1.toString  2.instanceof  3.constructor
+                            target[prop] = [];                   //     4.  建立相应的数组或对象
+                        } else {
+                            target[prop] = {};
+                        }                                        
+                        deepClone(origin[prop], target[prop]);             //      5.   递归
+                    } else {
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+
+        function deepClone(origin, target) {
+            var target = target || {},
+                toStr = Object.prototype.toString,
+                arrStr = "[object Array]";
+            for(var prop in origin) {
+                if(orgin.hasOwnPropert(prop)){
+                    if(origin[prop] !== "null" && typeof (origin[prop]) == 'object') {
+                        if(toStr.call(origin[prop]) == arrStr) {
+                            target[prop] = [];
+                        } else{
+                            target[prop] = {};
+                        }
+                        deepClone(origin[prop], target[prop]);
+                    }else {
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+
+
+    
+        // 题讲解
+        // 1.
+        var x = 1;
+        if (function f() { }) {
+            // 当 function f （）{} 在if（）里被当做表达式，会立刻执行，且被释放，没有任何意义
+            x += typeof f;
+        }
+        console.log(x)  // "1undefined"
+
+        // 2.
+        var foo = '123';
+        function print() {
+            var foo = '234';
+            this.foo = '345';    // 函数预编译过程 this 指向 window；
+            console.log(foo);    // 234
+        }
+        console.log(foo);    // 123
+        print();
+        console.log(foo);   // 345
+
+
+        // 3.
+        var name = '222';
+        var a = {
+            name: '111',
+            say: function () {
+                console.log(this.name)
+            }
+        }
+        var fun = a.say;
+        fun();    // 222
+
+        a.say();    // 111 
+        var b = {
+            name: '333',
+            say: function (fun) {
+                fun();
+            }
+        }
+
+        b.say(a.say);    // 222
+        b.say = a.say;
+        b.say();      // 333
+
+        // 4. 
+        var foo = 123;
+        function print() {
+            // var this = {}
+            this.foo = 234;
+            // this = {
+            //     foo = 123,
+            // }
+            console.log(foo);
+            console.log(this.foo)
+        }
+        new print();  // 123  234
+        // 构造函数内部原理 ：{
+        //     1. 隐式创建 this = {}；
+        //     2. 执行 this.xxx = xxx；
+        //     3. 隐式 return this；
+        // }
+
+
+        // 5.
+        var foo = 123;
+        function print() {
+            this.foo = 234;
+            // 函数预编译过程 this指向 window
+            console.log(foo)
+        }
+        print();   // 234
+
+        // 6.
+        var a = 5;
+        function test() {
+            a = 0;
+            console.log(a); // 0  0
+            console.log(this.a);  // 5  undfined
+            var a;
+            console.log(a)  // 0  0
+        }
+        test();
+        new test();
+
+        // 7.
+        var bar = { a: '212' };
+        function print() {
+            bar.a = 'a';
+            Object.prototype.b = 'b';
+            return function inner() {
+                console.log(bar.a);
+                console.log(bar.b)
+            }
+        }
+        print()();   // a b
+
+    </script>
+</body>
+
+</html>

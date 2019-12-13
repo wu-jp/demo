@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    // 对象
+        var msTao = {
+            name: "taoqing",
+            age: 18,
+            bf: "wu",
+            sex: " female",
+            love: 100,
+            getMarried: function () {
+                this.love++;
+            },
+            haveBaby: function () {
+                this.love++;
+            }
+        }
+        msTao.getMarried();
+        msTao.haveBaby();
+        msTao.father = "laotao";  // 增加属性
+        delete msTao.bf; // 删除属性
+        console.log(msTao.love);
+        console.log(msTao)
+
+    // 对象的创建方法
+        // 一： 系统自带构造函数
+        var obj = new Object();  // new Object()为系统自带的构造函数
+        // 二： 自定义
+        function Car(color) {
+            this.color = color;
+            this.name = "BMW";
+            this.heigth = "1400";
+            this.lang = "4000";
+            this.weight = "2000";
+        }
+        var car = new Car(red);
+
+        function Student(name, age, sex) {
+            this.grade = 2018;
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        var student = new Student("wujiapeng", 18, "male");
+        //当一个函数拥有了参数 他才变得强大
+
+
+        // 构造函数内部原理{
+        //     1. 在函数的最前面隐式加上 this = {}
+        //     2. 执行 this.xxx = xxx
+        //     3. 在函数的最后面隐式 return this
+        // }
+
+
+    // 题：求任意一段字符串的字节长度（当字符的unicode > 255,字节长度为2 ，<=255为1）
+        var love = "hello world 爱你哦!";
+        function ok(str) {
+            var len = love.length;
+            var count = 0;
+            for (var i = 0; i < len; i++) {
+                if (love.charCodeAt(i) > 255) {
+                    count += 2;
+                } else {
+                    count++;
+                }
+            }
+            console.log(count);
+        }
+        ok(love);
+
+    // call apply  改变 this 指向; 区别：传参列表不同
+        // call 借用别人的函数 实现自己的功能
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        function Student(name, age, sex, tel, grade) {
+            // var this = {};  和下面的 this 相同
+            Person.call(this, name, age, sex);
+            this.tel = tel;
+            this.grade = grade;
+        }
+        var student = new Student('wu', 18, 'male', 150, 2018);
+        console.log(student);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

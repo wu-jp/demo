@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="1.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container">
+            <input type="text" class="txtb" placeholder="Add a task">
+
+            <div class="notcomp">
+                <h3>Not Completed</h3>
+                <!-- <div class="task">
+                    task
+                    <i class='fas fa-trash-alt'></i>
+                    <i class='fas fa-check'></i>
+                </div> -->
+
+            </div>
+
+            <div class="comp">
+                <h3>Completed</h3>
+                <!-- <div class="task">
+                    task
+                    <i class='fas fa-trash-alt'></i>
+                </div> -->
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $('.txtb').on('keyup', function(e) {
+                //13  means enter button
+                if(e.keyCode == 13 && $('.txtb').val != ""){
+                    var task = $('<div class="task"></div>').text($('.txtb').val());
+
+                    var del = $("<i class='fas fa-trash-alt'></i>").click(function(event) {
+                        /* Act on the event */
+                        // 取到父级
+                        var p = $(this).parent();
+                        // 先淡入隐藏，再移除
+                        p.fadeOut(function() {
+                            p.remove()
+                        });
+                    });
+
+                    var check = $("<i class='fas fa-check'></i>").click(function(event) {
+                        /* Act on the event */
+                        // 取到父级
+                        var p = $(this).parent();
+                        // 先淡入隐藏，再添加到comp淡出显示
+                        p.fadeOut(function() {
+                            $('.comp').append(p);
+                            p.fadeIn();
+                        });
+                        // 去除✔图标
+                        $(this).remove()
+                    });
+
+                    // 将两个图标添加到task后面
+                    task.append(del,check);
+                    $('.notcomp').append(task);
+                    // to clear the input
+                    $('.txtb').val("")
+                }
+            })
+        </script>
+    </body>
+</html>

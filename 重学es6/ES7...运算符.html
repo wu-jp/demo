@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // ES7 ... {}
+        let company = {
+            name: 'duyi',
+            age: 18
+        }
+        let leader = {
+            name: 'cg',
+            age: 30
+        }
+        let teachDepartment = {
+            leader: {
+                ...leader
+            },
+            personMum: 100
+        }
+        teachDepartment.leader.age = 40
+        
+        // 合并这两个对象,且为深度克隆,改变新对象的属性值时不会改变源对象的属性值
+
+        // 1. 利用...操作符
+        let obj = {
+            ...company,
+            ...teachDepartment
+        }
+        console.log(obj)
+        console.log(leader.age)
+
+        // 2. 利用es6中的Object.assign({},target-obj)方法
+        console.log(Object.assign({}, company, teachDepartment))
+        console.log(leader.age)
+
+        // 3.
+        console.log(JSON.parse(JSON.stringify(teachDepartment)))
+        console.log(leader.age)
+
+    </script>
+</body>
+</html>

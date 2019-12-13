@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            background-color: rgb(67, 120, 145)
+        }
+
+        div {
+            background-color: rgb(241, 156, 201);
+            color: black;
+            font-size: 18px;
+            font-weight: 600;
+            width: 200px;
+            height: 100%;
+            margin: 100px auto;
+            /* border: 1px solid black; */
+            text-align: center;
+        }
+
+        div ul li {
+            padding: 15px 0;
+            border: 1px solid black;
+        }
+
+        .wrapper .list ul {
+            display: none;
+        }
+
+        .wrapper .list .two {
+            font-weight: 400;
+            color: #fff;
+            background-color: rgb(110, 84, 158);
+        }
+
+        .wrapper .list .one:hover+.two {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="list">
+            <!-- 
+            正确的结构（懒得改）
+            <li>
+                <a href="">HTML CSS</a>
+                <ul>
+                    <li>html标签</li>
+                    <li>结构关系</li>
+                    <li>css样式</li>
+                    <li>标签选择器</li>
+                </ul>
+            </li> -->
+            <li class="one one1">HTML CSS</li>
+            <ul class="two two1">
+                <li>html标签</li>
+                <li>结构关系</li>
+                <li>css样式</li>
+                <li>标签选择器</li>
+            </ul>
+            <li class="one one2">JavaScript</li>
+            <ul class="two two2">
+                <li>原始js方法</li>
+                <li>jquery的使用</li>
+                <li>面向对象</li>
+            </ul>
+            <li class="one one3">HTML5 CSS3</li>
+            <ul class="two two3">
+                <li>html5新标签</li>
+                <li>css3动画</li>
+            </ul>
+            <li class="one one4">主流框架</li>
+            <ul class="two two4">
+                <li>Bootstrap</li>
+                <li>Vue</li>
+            </ul>
+            <li class="one one5">管理工具</li>
+            <ul class="two two5">
+                <li>Webpack</li>
+                <li>Git</li>
+            </ul>
+        </ul>
+    </div>
+</body>
+
+</html>

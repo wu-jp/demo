@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            width: 500px;
+            height: 50px;
+            border: 1px solid #ddd;
+            margin: 200px auto;
+            border-radius: 10px;
+            padding: 10px;
+            border-color: #dedede #bababa #aaa #bababa;
+            box-shadow: 0 3px 3px rgba(255, 255, 255, .1),
+                        0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 5px #444;
+            background-image: -webkit-linear-gradient(top, #f6f6f6, #eae8e8);
+        }
+        .wrapper input:nth-child(1) {
+            width: 70%;
+            height: 46px;
+            margin-right: 20px;
+            border-radius: 3px;
+            font-size: 18px;
+            display: inline-block;
+            box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #fff;
+        }
+        .wrapper input:nth-child(1):focus {
+            outline: 0;
+            border-color: #aaa;
+            box-shadow: 0 1px 1px #bbb inset;
+        }
+        .wrapper input:nth-child(2) {         
+            width: 20%;
+            height: 50px;
+            display: inline-block;
+            color: #fff;
+            border-radius: 3px;
+            text-transform: uppercase;
+            border-color: #00748f;
+            background-image: -webkit-linear-gradient(top, #31b2c3, #0483a0);
+            text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        .wrapper input:nth-child(2):focus {
+            background-color: #31b2c3;
+            background-image: -webkit-linear-gradient(top, #0483a0, #31b2c3);
+            outline: 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <input type="text">
+        <input type="submit" value="Go">
+    </div>
+</body>
+</html>

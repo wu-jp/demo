@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>Son -> Father: {{sonValue}}</div>
+        <my-ipt @tellme='tell'></my-ipt>
+    </div>
+    <script>
+        const myIpt = {
+            template:`
+                <div>
+                    <input type='text' v-model='value'></input>
+                </div>
+            `,
+            data(){  
+                return{
+                    value: ''
+                }
+            },
+            watch: {  //监听
+                value(){
+                    // console.log(this.value)
+                    this.$emit('tellme', this.value)  //自定义事件触发方式
+                }
+            }
+        }
+        // Vue.prototype.$emit = function() {}   定义在原型链上的触发自定义事件的方法
+        new Vue({
+            el: '#app',
+            components:{
+                myIpt
+            },
+            data: {
+                sonValue: ''
+            },
+            methods: {
+                tell(value){    //子级组件触发tellme事件，父级接收参数value
+                    this.sonValue = value
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

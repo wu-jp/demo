@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+</head>
+<body>
+    <div id="app">
+            <my-inp  :title="title" :reg="reg" :err="errMsg" :suc="sucMsg" @ret="retValue"></my-inp>
+            <show-inp :qq="msg"></show-inp>
+    </div>
+    <script>
+        const myInp = {
+            template: `
+                <div>
+                    <span>{{title}}</span>
+                    <input type='text' v-model="myText" @input="changeVal"/>
+                    <span :style="showMsg.flag ? 'color:lime' : 'color: red' ">{{showMsg.value}}</span>
+                </div>            
+            `,
+            data(){
+                return{
+                    myText: this.def
+                }
+            },
+            props: {
+                 def: {
+                     type: String,
+                     defalut: ''
+                 },
+                 title: {
+                     type: String,
+                     default: ''
+                 },
+                 err: {
+                     type: String,
+                     default: 'NO'
+                 },
+                 suc: {
+                     type: String,
+                     default: 'OK'
+                 },
+                 reg: {
+                     type: RegExp,
+                     default: null
+                 }
+            },
+            computed: {
+                showMsg() {
+                    if(this.reg === null || this.myText === '') {
+                        return { 
+                            value: '',
+                            flag: false
+                        }   
+                    } else {
+                        return this.reg.test(this.myText) ? {value: this.suc, flag: true} : {value:this.err, flag: false}
+                    }
+                }
+            },
+            methods: {
+                changeVal(e){
+                    if(this.showMsg.flag) {
+                        this.$emit('ret', e.target.value)
+                    }
+                }
+            }
+            
+        }
+        const showInp = {
+            template: `
+                <div>
+                    <span>qqNumber：{{qqNum}}</span>
+                </div>
+            `,
+            props: ['qq'],
+            computed: {
+                qqNum() {
+                    return this.qq.slice(0, -7)
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                myInp,
+                showInp
+            },
+            methods: {
+                retValue(value) {
+                   this.msg = value
+                }
+            },
+            data() {
+                return {
+                    title: "QQ邮箱",
+                    reg: /@qq.com$/,
+                    errMsg: '✖ 请输入以@qq.com结尾的邮箱',
+                    sucMsg: '✔ 输入正确',
+                    msg: ''
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

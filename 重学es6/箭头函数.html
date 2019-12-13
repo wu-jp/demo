@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    箭头函数的特点:
+        1.不用写function关键字
+        2.只能最为函数使用,不能new,没有原型
+        3.参数不能重复命名
+        4.返回值可以不用写return, 但是有时候需要配合()使用
+        5.内部 arguments this 由定义时外围最接近一层的非箭头函数的 arguments 和 this 决定其值
+
+    <script>
+        let arr = function (a, b) {
+            return a + b
+        }
+        console.log(arr(1, 3))
+
+        let sum1 = (a, b) => a + b
+        console.log(sum1(1, 2))
+
+        let sum2 = (a, b) => [a, b]
+        console.log(sum2(1, 2))
+
+        let sum3 = (a, b) => ({
+            a: a,
+            b: b
+        })
+        console.log(sum3(1, 2))
+
+
+        // 简写普通函数
+        // function sum4 (x) {
+        //     return function (y) {
+        //         return function (z) {
+        //             return x + y + z
+        //         }
+        //     }
+        // }
+
+        let sum4 = x => y => z => x + y + z;
+        console.log(sum4(1)(2)(3))
+
+
+        // 箭头函数常见的几种声明 
+        let f = () => {
+
+        }
+        f()
+
+        let obj ={
+            fn: () => {}
+        }
+        obj.fn()
+
+        let arr1 = [() => {}]
+        arr1[0]()
+
+
+        let obj2 = {
+            ms: 'sss',
+            fn2 () {
+                console.log(this)
+                setTimeout( () => {
+                    console.log(this.ms)
+                },1000)
+            }
+        }
+        obj2.fn2()
+        
+
+    </script>
+</body>
+
+</html>

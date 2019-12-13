@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // var a = [];
+        // for(var i = 0; i < 10; i++) {
+        //     a[i] = function() {
+        //         console.log(i);
+        //     }
+        // }
+        // a[1]();  //10 每一项都是10
+        
+
+        // //基本用法
+        // var a = [];
+        // for(let i = 0; i < 10; i++) {
+        //     a[i] = function () {
+        //         console.log(i)
+        //     }
+        // }
+        // a[0]();  //1
+
+
+        //for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域
+        // for(let i = 0; i < 3; i++) {
+        //     let i = 'ass';
+        //     console.log(i)
+        // }
+        // ass
+        // ass
+        // ass
+        
+
+        // function s() {
+        //     let a = 1;
+        //     var a = 2;
+        // }
+        // s();
+
+
+        // function f1() {
+        //     var n = 5;
+        //     if (true) {
+        //         var n = 10;
+        //     }
+        //     console.log(n); // 5
+        // }
+        // f1()
+
+
+        // 解构赋值
+        // 数组
+        let [foo, [[bar], baz]] = [1, [[2], 3]];
+        foo // 1
+        bar // 2
+        baz // 3
+
+        let [ , , third] = ["foo", "bar", "baz"];
+        third // "baz"
+
+        let [x, , y] = [1, 2, 3];
+        x // 1
+        y // 3
+
+        let [head, ...tail] = [1, 2, 3, 4];
+        head // 1
+        tail // [2, 3, 4]
+
+        let [x, y, ...z] = ['a'];
+        x // "a"
+        y // undefined
+        z // []
+
+        let [foo] = [];
+        foo  //undefined
+        let [bar, foo] = [1];
+        foo  //undefined
+        //如果解构不成功，变量的值就等于undefined
+
+        //以下为不完全解构，但是可以成功
+        let [x, y] = [1, 2, 3];
+        x // 1
+        y // 2
+
+        let [a, [b], d] = [1, [2, 3], 4];
+        a // 1
+        b // 2
+        d // 4
+
+        // 以下都会报错
+        let [foo] = 1;
+        let [foo] = false;
+        let [foo] = NaN;
+        let [foo] = undefined;
+        let [foo] = null;
+        let [foo] = {};
+
+        let [x, y, z] = new Set(['a', 'b', 'c']);
+        x // "a"
+
+        //数组解构赋值允许指定默认值
+        //当我们赋的值严格为 undefined 时，会走默认值
+        //当没有给默认值时，会走解构赋值
+        //下面 x = 1为默认值
+        let [x = 1] = [undefined];
+        x // 1
+        
+        let [x = 1] = [null];
+        x // null
+
+        let [foo = true] = [];
+        foo // true
+
+        let [x, y = 'b'] = ['a']; // x='a', y='b'
+        let [x, y = 'b'] = ['a', undefined]; // x='a', y='b'
+
+
+        //对象的解构赋值
+
+        let { foo, bar } = { foo: "aaa", bar: "bbb" };
+        foo // "aaa"
+        bar // "bbb"
+        //对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，
+        //变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值
+        let { baz } = { foo: "aaa", bar: "bbb" };
+        baz // undefined
+
+        //对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者
+        let { foo: baz } = { foo: "aaa", bar: "bbb" };
+        baz // "aaa"
+        foo // error: foo is not defined
+        //上面代码中，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。
+    
+        //嵌套赋值
+        const node = {
+            loc: {
+                start: {
+                    line: 1,
+                    column: 5
+                }
+            }
+        };
+
+        let { loc, loc: { start }, loc: { start: { line }} } = node;
+        line // 1
+        loc  // Object {start: Object}
+        start // Object {line: 1, column: 5}
+        //上面代码有三次解构赋值，分别是对loc、start、line三个属性的解构赋值
+        //最后一次对line属性的解构赋值之中，只有line是变量，loc和start都是模式
+    
+        let obj = {};
+        let arr = [];
+
+        ({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });
+
+        obj // {prop:123}
+        arr // [true]
+    
+        //对象解构也可以指定默认值
+        //默认值生效的条件是，对象的属性值严格等于undefined
+        //null不严格等于undefined
+        var {x: y = 3} = {};
+        y // 3
+
+        var {x: y = 3} = {x: 5};
+        y // 5
+
+        var {x = 3} = {x: undefined};
+        x // 3
+
+        var {x = 3} = {x: null};
+        x // null
+
+        //如果解构失败，变量的值等于undefined
+        let {foo} = {bar: 'baz'};
+        foo // undefined
+
+        // 报错
+        let {foo: {bar}} = {baz: 'baz'};
+        //foo属性解构失败，值为undefined，从而不会取子属性
+
+
+        //字符串的赋值解构
+        const [a, b, c, d, e] = 'hello';
+        a // "h"
+        b // "e"
+        c // "l"
+        d // "l"
+        e // "o"
+        //类似数组的对象都有一个length属性，因此还可以对这个属性解构赋值。
+        let {length : len} = 'hello';
+        len // 5
+
+
+        //数值和布尔值的解构赋值
+        //解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

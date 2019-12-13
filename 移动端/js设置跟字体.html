@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    div {
+      float: left;
+      background: palevioletred;
+      width: 4rem;
+      height: 4rem;
+    }
+  </style>
+
+  <script>
+    /*
+      1. 元素适配的宽度=元素所占的列数 * 1rem
+      2. 一列的宽度=屏幕实际宽度(css像素) / 列数
+      3. 元素实际占的列数=元素设计稿的宽度 / 1rem
+    */
+
+    (function() {
+      var html = document.documentElement;  // html
+      var width = html.clientWidth;       // css像素
+
+      html.style.fontSize = width/16+'px';
+
+    })();
+
+
+  </script>
+
+</head>
+<body>
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+</body>
+</html>

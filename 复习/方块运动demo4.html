@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        ul{
+            position: relative;
+            margin: 100px auto 0;
+            width: 600px;
+            height: 60px;
+            border: 1px solid black;
+        }
+        li.nev{
+            width: 148px;
+            height: 58px;
+            border: 1px solid black;
+            line-height: 58px;
+            color: #f00;
+            text-align: center;
+            float: left;
+
+        }
+        .bg{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 60px;
+            background: #f40;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="nev">vue</li>
+        <li class="nev">webpack</li>
+        <li class="nev">html5</li>
+        <li class="nev">es6</li>
+        <li class="bg"></li>
+    </ul>  
+    
+    <script>
+        var oLiArr = Array.prototype.slice.call(document.getElementsByClassName('nev'));
+        var oBg = document.getElementsByClassName('bg')[0];
+        var timer = null;
+        oLiArr.forEach(function (ele, index) {
+            ele.onmouseenter = function() {
+                var newLeft = this.offsetLeft;
+                startMove(oBg, newLeft)
+            }
+        })  
+
+        function startMove(obj, target) {
+            // console.log('q');
+            clearInterval(obj.timer);
+            var iSpeed = 20, a, u = 0.9;
+            obj.timer = setInterval(function() {
+
+                a = (target - obj.offsetLeft) / 12;
+                iSpeed = iSpeed + a;
+                iSpeed = iSpeed * u;
+                if(Math.abs(iSpeed) <= 1 && Math.abs(target - obj.offsetLeft) <= 1) {
+                    clearInterval(obj.timer);
+                    obj.style.left = target + 'px';
+                }else {
+                    obj.style.left = obj.offsetLeft + iSpeed + 'px';
+                }
+            
+            },30)
+        }
+
+
+    </script>
+
+</body>
+</html>

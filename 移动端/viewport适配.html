@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta id="view" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: helvetica;
+      margin: 0;
+    }
+    .app div{
+      width: 93.75px;
+      height: 100px;
+      float: left;
+    }
+    .app div:nth-child(1) {
+      background: red;
+    }
+    .app div:nth-child(2) {
+      background: rgb(25, 141, 60);
+    }
+    .app div:nth-child(3) {
+      background: rgb(6, 183, 236);
+    }
+    .app div:nth-child(4) {
+      background: rgb(144, 8, 161);
+    }
+
+    
+  </style>
+  <script>
+    (function() {
+      // 获取css像素 （viewport没有缩放）
+      var curWidth = document.documentElement.clientWidth;
+      var curWidth = window.innerWidth;
+      var curWidth = window.screen.width;
+      console.log(curWidth)
+
+      var targetWidth = 375;
+      var scale = curWidth/targetWidth; 
+      console.log(scale)
+
+      var view = document.getElementById('view');
+      view.content = 'initial-scale='+ scale +', minimum-scale='+ scale +', maximum-scale='+ scale;
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>

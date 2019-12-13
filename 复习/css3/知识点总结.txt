@@ -1,0 +1,68 @@
+﻿边框
+1. border-radius --圆角
+2. box-shadow：{X偏移 Y偏移 阴影模糊半径 
+                阴影扩展半径 阴影颜色 投影方式} --盒子阴影
+    .box_shadow{
+        box-shadow:4px 2px 6px 7px #333333 inset; 
+    }
+3. text-shadow --文本阴影
+4. 颜色值 RGBA
+
+背景颜色
+1. 线性渐变： linear-gradient()
+2. 径向渐变： radial-gradient()
+3. 文字边界换行： word-wrap : normal（默认）|break-word
+4. 字体样式：
+    @font-face{
+        font-family:”myFirstFont”;
+        src:url('Sansation_Light.ttf'),
+            url(‘Sansation_Light.eot') format(‘eot’)；
+    }
+    p{
+        font-family:”myFristFont”;
+    }
+5. 边框背景： border-image 
+6. 背景图片起始位置:  background-origin
+    语法：background-origin ： border-box | padding-box | content-box;
+7. 裁剪背景:  background-clip
+    语法：background-clip ： border-box | padding-box | content-box | no-clip
+8. 背景图片尺寸:  background-size
+    语法：background-size: auto | <长度值> | <百分比> | cover | contain
+
+选择器
+*初级伪类选择器
+1. :root  根标签选择器，相当于整个html
+2. :not   否定选择器，除了选择的以为
+3. empty  空标签选择器，内容为空
+4. target  目标选择器  选取当前活动的目标元素
+*伪类选择器
+1.  :first-child   第一个子元素
+    :last-child   最后一个子元素  
+    :nth-child(){}   第xxx个子元素，n代表变量自然数
+    :nth-last-child(){}  从后往前数
+
+2.  :first-of-type   第一个子元素
+    :last-of-type   最后一个子元素
+    :nth-of-type(){}   第xxx个子元素，n代表变量自然数
+    :nth-last-of-type(){}  从后往前数
+
+3.  :only-child    唯一子元素选择器，不能有兄弟元素
+    :only-of-type   兄弟元素中该元素类型的元素只有他一个
+
+4.  :enabled   可用的元素
+    :disabled   不可用的元素
+ 
+5.  :read-only   选中只读的元素
+    eg:<input type=“text” readonly=“readonly”/>
+
+    :read-write   选中非只读的元素
+    eg:<input type=“text”/>
+*伪元素选择器
+    ::first-letter,
+    ::first-line,
+    ::before,
+    ::after
+
+动画
+
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-com></my-com>
+    </div>
+    <script>
+        const myCom = {   //创建一个局部组件
+            template: `
+                <div>
+                    <div>{{myshow}}</div>
+                    <button @click='change'>changeshow</button>
+                </div>
+            `,
+            data(){   //局部组件的data用这种方法写
+                return {
+                    show: 'hello Everyone '
+                }
+            },
+            methods: {   //方法
+                change(){
+                    this.myshow = 'ke.qq.com'
+                }
+            },
+            computed: {    //计算
+                myshow: {
+                    get(){
+                        return this.show + ' Welcome to duyi'
+                    },
+                    set(newVal) {
+                        this.show = newVal
+                    }                }
+            }
+        }
+        // Vue.component('myCom', {   //创建全局组件
+        //     template:'<div>hello</div>',
+        //     data,
+        //     methods,
+        //     computed,
+        //     watch
+        // })
+        new Vue({     //创建一个vue环境
+            el: '#app',
+            components: {   //引入自定义的组件
+                myCom
+            }
+        })
+    
+        
+    </script>
+</body>
+</html>

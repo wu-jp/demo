@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 对象,数组的数据劫持
+        // 这两个方法兼容性差
+
+        // let oData = {
+        //     val: 'wjp'
+        // }
+        let oData = ['fdj']
+
+        let oProxyData = new Proxy(oData, {
+            get (target, key, receiver) {
+                return Reflect.get(target, key)
+            },
+            set (target, key, value, receiver) {
+                Reflect.set(target, key, value)
+                upData()
+            }
+        })
+
+        // 读写控制
+        // console.log(oProxyData.val)
+        function upData () {
+            console.log('更新啦')
+        }
+        // 可以增加属性
+        oProxyData.name = 20
+    </script>
+</body>
+
+</html>

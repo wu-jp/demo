@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="demo">
+    <div id="show"></div>
+    <script>
+        // 对象的数据劫持 ->vue双向绑定原理
+
+        var oDiv = document.getElementById('show');
+        var oInput = document.getElementById('demo');
+
+        var oData = {
+            valueObj: {
+                value: 'duyi',
+                name: 'haha'
+            },
+            sex: 'male'
+        }
+
+        oInput.oninput = function () {
+            oData.valueObj.value = this.value
+        }
+        function upData () {
+            oDiv.innerText = oData.valueObj.value;
+        }
+        upData();
+
+        // 监控对象的某个属性是否发生改变
+        // 不可以增加属性
+        function Observer (data) {
+            if(!data || typeof data != 'object') {
+                return data;
+            }
+            Object.keys(data).forEach(function (key) {
+                definedRective(data, key, data[key]);
+            })
+        }
+        function definedRective (data, key, val) {
+            // 利用递归,判断val值是不是对象
+            Observer(val);
+            Object.defineProperty(data, key, {
+                get () {
+                    return val
+                },
+                set (newValue) {
+                    if(newValue == val) return;
+                    val = newValue;
+                    upData();
+                }
+            })
+        }
+        Observer(oData)
+        console.log(oData.valueObj.value)
+    </script>
+</body>
+</html>

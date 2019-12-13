@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 加法计数器
+        function adder() {
+            var sum = 0;
+            for (var i = 0; i < arguments.length; i++) {
+                sum += arguments[i];
+            }
+            console.log(sum);
+        }
+        adder(1, 2, 3, 4);
+
+        // 输入数字 并逆转输出汉字形式
+        function trverse() {
+            var num = window.prompt('input');
+            var str = '';
+            for (var i = num.length - 1; i >= 0; i--) {
+                str += transfer(num[i]);
+            }
+            console.log(str);
+        }
+
+        function transfer(target) {
+            switch (target) {
+                case "1":
+                    return "一";
+                case "2":
+                    return "二";
+                case "3":
+                    return "三";
+
+            }
+        }
+        trverse()
+
+        // 实现n的阶乘
+        function factorial(n){
+            if(n == 1 || n == 0){
+                return 1;
+            }
+            return n * factorial(n - 1);
+        }
+        var add = factorial(7);
+        console.log(add);
+    
+
+    </script>
+</body>
+
+</html>

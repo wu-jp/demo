@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓冲运动</title>
+    <style>
+        div{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        button{
+            margin-top: 210px;
+            border: 1px soled black;
+        }
+
+        span{
+            position: absolute;
+            left: 600px;
+            top: 0;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <button>run</button>
+    <span></span>
+    <script>
+    
+        var odiv = document.getElementsByTagName('div')[0];
+        var btn = document.getElementsByTagName('button')[0];
+        var timer = null;
+        
+        btn.onclick = function() {
+            startMovr(odiv);
+        }
+
+        function startMove(obj) {
+            clearInterval(timer);
+            var iSpeed;
+            timer = setInterval(function() {
+                iSpeed = (600 - obj.offsetLeft) / 7;
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                if(obj.offsetLeft === 600){
+                    clearInterval(timer);
+                }else {
+                    obj.style.left = obj.offsetLeft + iSpeed + 'px';
+                }
+
+            },30)
+        }
+
+
+    </script>
+</body>
+</html>

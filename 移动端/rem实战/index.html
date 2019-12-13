@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script>
+    /*
+      1. 元素适配的宽度=元素所占的列数 * 1rem
+      2. 一列的宽度=屏幕实际宽度(css像素) / 列数
+      3. 元素实际占的列数=元素设计稿的宽度 / 1rem
+    */
+
+    (function(doc, win, designWidth) {
+      var html = doc.documentElement;
+
+      function refreshRem () {
+        var clientWidth = html.getBoundingClientRect().width;
+        // var clientWidth = html.clientWidth;  //获取html的css像素
+
+        if (clientWidth >= designWidth) {
+          html.style.fontSize = '100px';
+        } else {
+          html.style.fontSize = 100* (clientWidth / designWidth) + 'px'
+        }
+      }
+
+      doc.addEventListener('DOMContentLoaded', refreshRem);
+
+    })(document, window, 750);
+
+  </script>
+
+</head>
+<body>
+
+</body>
+</html>
