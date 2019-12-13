@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.wrapper{
+    width: 500px;
+    height: 600px;
+    border: 1px solid #ccc;
+    border-radius:10px;
+    margin: 100px auto;
+    position: relative;
+}
+.search{
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    /* border: 1px solid black; */
+}
+.wrapper input{
+    height: 30px;
+    width: 240px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    outline: none;
+    margin: 15px 0 0 15px;
+}
+.wrapper .search ul{
+    position: absolute;
+    right: 0;
+    top: 25px;
+}
+.wrapper .search ul li{
+    float: left;
+    height: 30px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 2px solid orange;
+    border-radius: 10px;
+    line-height: 30px;
+    text-align: center;
+    color: orange;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.wrapper .search ul li:hover{
+    border: 2px solid #ccc;
+}
+.wrapper .userList{
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    /* border: 1px solid black; */
+}
+.wrapper .userList li{
+    width: 90%;
+    height: 60px;
+    margin: 10px auto;
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+.wrapper .userList img{
+    width: 60px;
+    height: 60px;
+    /* border: 1px solid #333; */
+}
+.wrapper .userList span{
+    display: inline-block;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: top;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+.wrapper .search .active{
+    color: #fff;
+    background-color: orange;
+}

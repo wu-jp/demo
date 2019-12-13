@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+        body {
+            background-color: gray;
+        }
+        .box {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 600px;
+            height: 350px;
+            margin: 200px auto 0;
+            overflow: hidden;     /* 超出部分被隐藏 */
+        }
+        .box-ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3600px;
+            height: 350px;
+        }
+        .box-ul li {
+            float: left;
+        }
+        .box-ul li img {
+            width: 600px;
+            height: 350px;
+        }
+        .btn {
+            opacity: 0.5;
+        }
+        .btn span {
+            display: inline-block;
+            width: 50px;
+            height: 40px;
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            color: yellow;
+            font-size: 20px;
+	        text-align: center;
+	        line-height: 40px;
+	        background-color: black;
+        }
+        .box .btn:hover{
+            opacity: 1;
+            cursor: pointer;
+        }
+        .box .btn .btn-left{
+	        left: 10px;
+        }
+        .box .btn .btn-right{
+	        right: 10px;
+        }
+        .box-po {
+            width: 100%;
+            height: 10px;
+            position: absolute;
+            bottom: 10px;
+        }
+        .box-po .box-i {
+            width: 120px;
+            height: 10px;
+            margin: 0 auto;
+        }
+        .box-po .box-i i {
+            float: left;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 5px 0 5px;
+            background-color: white;
+        }
+        .box-po .box-i i:hover{
+            cursor: pointer;
+        }
+        .box-po .box-i .change {
+            background-color:yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box-move">
+            <ul class="box-ul">
+                <li class="b-img">
+                    <img src="./img/p1.jpg" alt=""></li>
+                <li class="b-img">
+                    <img src="./img/p2.jpg" alt=""></li>
+                <li class="b-img">
+                    <img src="./img/p3.jpg" alt=""></li>
+                <li class="b-img">
+                    <img src="./img/p4.jpg" alt=""></li>
+                <li class="b-img">
+                    <img src="./img/p5.jpg" alt=""></li>
+                <li class="b-img">
+                    <img src="./img/p1.jpg" alt=""></li>
+            </ul>
+        </div>
+        <div class="btn">
+            <span class="btn-left">&lt;</span>
+        </div>
+        <div class="btn">
+            <span class="btn-right">&gt;</span>
+        </div>
+        <div class="box-po">
+            <div class="box-i">
+                <i class="change"></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        var count = 0;
+        var oPicUL = document.getElementsByTagName('ul')[0],
+            moveWidth = oPicUL.children[0].offsetWidth;
+        var oI = document.getElementsByTagName('i'),
+            oILen = oI.length;
+        var oBtnleft = document.getElementsByClassName('btn-left')[0],
+            oBtnright = document.getElementsByClassName('btn-right')[0],
+            oBox = document.getElementsByTagName('div')[0];
+        var boolen = true;
+        var realPicNum = oPicUL.children.length - 1;
+        var timer = window.setInterval(autoMove,2000);
+        oBtnleft.onclick = function () {
+            autoMove(-1);
+        }
+        oBtnright.onclick = function () {
+            autoMove(1);
+        }
+        oBox.onmouseover = function () {
+            clearInterval(timer);
+        }
+        oBox.onmouseout = function () {
+            timer = window.setInterval(autoMove,2000)
+        }
+        for (var i = 0; i < oILen; i ++) {
+            oI[i].onclick = (function (i) {
+                return function () {
+                    count = i;
+                    changeCir(count);
+                    move(oPicUL,{left: -moveWidth * i},function () {
+                        boolen = true;
+                    });
+                }
+            })(i)
+        }
+        function autoMove(demo){
+            if (boolen) {
+                boolen = false;
+                if (demo == 1 || !demo) {
+                    count ++;
+                    if (count == 5) {
+                        count = 0;
+                    }
+                    changeCir(count);
+                    move(oPicUL,{left: oPicUL.offsetLeft - moveWidth},function () {
+                        if (count == 0) {
+                            oPicUL.style.left = '0px';
+                        }
+                        boolen = true;
+                    });
+                }else if (demo == -1) {
+                    if (oPicUL.offsetLeft == 0) {
+                        oPicUL.style.left = -moveWidth * realPicNum + 'px';
+                        count = realPicNum;
+                    }
+                    count --;
+                    changeCir(count);
+                    move(oPicUL,{left: oPicUL.offsetLeft + moveWidth},function () {
+                        boolen = true;
+                    });
+                }
+            }
+        }
+
+        function changeCir(demo) {
+            for (var i = 0; i < oILen; i ++) {
+                oI[i].className = '';
+            }
+            oI[demo].className = 'change';
+        }
+
+        function move (obj, data, func) {         
+            clearInterval(obj.timer);
+            var iSpeed,
+                iCur,
+                name;            
+            startTimer = obj.timer = setInterval(function () {
+                var bStop = true;
+                for (var attr in data) {
+                    if (attr === 'opacity') {
+                        name = attr;
+                        iCur = parseFloat(getStyle(obj, attr)) * 100;
+                    }else {
+                        iCur = parseInt(getStyle(obj, attr));
+                    }
+                    iSpeed = ( data[attr] - iCur) / 8;
+                    if (iSpeed > 0) {
+                        iSpeed = Math.ceil(iSpeed);
+                    }else {
+                        iSpeed = Math.floor(iSpeed);
+                    }
+                    if (attr === 'opacity') {
+                        obj.style.opacity = ( iCur + iSpeed ) / 100; 
+                    }else {
+                        obj.style[attr] = iCur + iSpeed + 'px';
+                    }
+                    if ( Math.floor(Math.abs(data[attr] - iCur)) != 0 ) {
+                        bStop = false;
+                    }
+                }
+                if (bStop) {					
+                    clearInterval(obj.timer);
+                    if (name === 'opacity') {
+                        obj.style.opacity = data[name] / 100;
+                    }
+                    func();
+                }
+            },30);
+        }
+        function getStyle(elem, style) {
+	        if (window.getComputedStyle) {
+	            return window.getComputedStyle(elem, null)[style];
+	         }else{
+	            return elem.currentStyle[style];
+	        }
+	    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #myCanvas{
+            border: 1px solid black;
+            background-size: 350px 350px;
+            background-position: center;
+            background-repeat: no-repeat; 
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400px" height="400px"></canvas>
+    <script>
+        var oCanvas = document.getElementById('myCanvas');
+        var ctx = oCanvas.getContext('2d');
+        var w = oCanvas.width;
+        var h = oCanvas.height;
+        // lastX,lastY 为鼠标按下的坐标
+        // nowX,nowY 为鼠标拖动后的坐标
+        var lastX,lastY,nowX,nowY;
+
+
+        //入口函数
+        function init() {
+            //填充灰色背景
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0 ,0 ,w ,h);
+            //插入随机背景图片
+            var r = Math.random();
+            var oImg = new Image(); 
+            // r < 0.5 ? oImg.src = '3.jpg' : oImg.src = '2.jpg' ;
+            if(r < 0.33){
+                oImg.src = '1.jpg'
+            }else if(r > 0.66){
+                oImg.src = '2.jpg'
+            }else{
+                oImg.src = '3.jpg'
+            }
+
+
+            //页面加载完成就执行函数
+            oImg.onload = function() {
+                //填充背景图片
+                oCanvas.style.backgroundImage = 'url(' + oImg.src + ')';
+                //规定新旧像素合成后的最终展示的形式
+                ctx.globalCompositeOperation = 'destination-out';
+                //开始交互
+                oCanvas.addEventListener('mousedown', downFn, false);
+            }   
+        }
+        init();
+        //鼠标点击
+        function downFn (e) {
+            // lastX,lastY 为鼠标按下的坐标
+            lastX = e.clientX - oCanvas.offsetLeft; 
+            lastY = e.clientY - oCanvas.offsetTop;
+            oCanvas.addEventListener('mousemove', moveFn, false);
+            document.addEventListener('mouseup' ,upFn ,false);
+        }
+        //鼠标拖拽
+        function moveFn (e) {
+            // nowX,nowY 为鼠标拖动后的坐标
+            nowX = e.clientX - oCanvas.offsetLeft; 
+            nowY = e.clientY - oCanvas.offsetTop;
+            //打开一条新的路径 画鼠标点击后的圆形
+            ctx.beginPath();
+            ctx.fillStyle = 'black';
+            ctx.arc(nowX, nowY ,20 , 0, Math.PI * 2, 0);
+            ctx.closePath();
+            ctx.fill();
+            // 解决快速拖动出现断节的现象
+            ctx.lineWidth = 40;
+            ctx.moveTo(lastX,lastY);
+            ctx.lineTo(nowX,nowY);
+            ctx.stroke();
+
+            lastX = nowX;
+            lastY = nowY;
+        }
+        // 鼠标松开
+        function upFn () {
+            oCanvas.removeEventListener('mousemove', moveFn ,false);
+            document.removeEventListener('mouseup', upFn ,false);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+/***********头部**************/
+
+/*............左导航栏..........*/
+.header{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	position: absolute;
+	border: 1px solid #e6e6fa;
+}
+
+.header .le .one{
+	list-style: none;
+}
+
+.header .le .one li{
+	float: left;
+}
+.header .le .one::after{
+	content: " ";
+	clear: :both;
+	display: block;
+}
+.header .le .one .a{
+	color: #333;
+	font-size: 13px;
+	padding: 0 5px;	
+}
+.header .le .one .a1{
+	color: #333;
+	font-size: 8px;
+    padding: 0 3px;
+}
+img{
+	width: 20px;
+	height: 20px;
+}
+.header .le .one li img{
+	position: relative;
+	top:5px;
+}
+.header .le .one .a{
+	text-decoration:underline; 
+}
+/*............右导航栏..............*/
+.header .ri .two{
+	list-style: none;
+}
+.header .ri .two li{
+	float: right;
+}
+.header .ri .two::after{
+	content: " ";
+	clear: :both;
+	display: block;
+}
+.header .ri .two .b1{
+	margin-right: 15px;
+	background-color:#38f;
+	text-decoration:none;
+	padding: 1px 6px;
+	color: #fff;
+}
+.header .ri .two li{
+	font-weight: 700;
+    font-size: 13px;
+    color: #333;
+    margin-right: 25px;
+    text-decoration:underline; 
+}
+.header .ri .two .b2{
+	font-weight: 350;
+}
+.header .ri ul li:hover{
+	color: #00c;
+	cursor:pointer;   
+}/*鼠标放上去变蓝加小手*/
+
+/**************中部**************/
+.bodyer .logo{
+	text-align: center;
+}
+.bodyer .logo img{
+	width: 270px;
+	height: 129px;
+	position: relative;
+	padding-top: 170px;
+}
+.bodyer .keyWord{
+	margin-top: 20px;
+	text-align: center;
+}
+.bodyer .keyWord form div{
+	display: inline-block;
+}
+.bodyer .keyWord form .inp input{
+	width: 540px;
+	height: 35px;
+	border: 1px solid #b6b6b6;
+}
+.bodyer .keyWord form .inp{
+	position: relative;
+}
+.bodyer .keyWord form .inp span{
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -10px;
+	width: 22px;
+	height: 20px;
+	background-image:url(img/a5.jpg);
+}
+.bodyer .keyWord form .inp{
+	vertical-align: top;
+}
+.bodyer .keyWord form .btn{
+    margin-left: -5px;
+}
+.bodyer .keyWord form .btn input {
+	width: 100px;
+	height: 37px;
+	background:#3385ff;
+	cursor:pointer;
+	color: #fff;
+	font-size: 15px;
+	border:none;
+}
+
+
+/***********尾部************/
+
+
+.info{
+	margin-top:520px;
+    text-align: center;
+}
+.info .in p{
+	padding: 1px 0;
+}
+.info .in p a{
+	color: #999;
+	font-size: 12px;
+	margin-left: 3px;
+}
+.info .in p span{
+	color: #999;
+	font-size: 12px;
+	margin-left: 3px;
+}
+.info .in .tu1{
+	display: inline-block;
+	width: 14px;
+	height: 17px;
+	background-image: url(img/a3.png);
+}
+.info .in .tu1{
+	vertical-align: bottom;
+}
+
+.info .in .te .teb{
+	text-decoration:none;
+}
+.info .in .tu2{
+	display: inline-block;
+	width: 16px;
+	height: 17px;
+	background-image: url(img/a4.jpg);
+}
+.info .in .tu2{
+	vertical-align: bottom;
+}
+.info .in .te .teb:hover{
+    text-decoration:underline;
+}

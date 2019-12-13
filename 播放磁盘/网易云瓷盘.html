@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .biground{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 200px;
+            height: 200px;
+            transform: translate(-50%, -50%);
+            border: 1px solid #000;
+            border-radius: 50%;
+            background: rgb(51, 49, 49)
+        }
+        .minround{
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background: url(./1.jpg);
+            background-size: cover;
+            animation: move 20s linear 0.3s infinite paused;  
+            /* paueed 让转盘先不转，点击 btn 后，js 使他变成 running 就开始转 */
+        }
+        .pin{
+            position: absolute;
+            left: 50%;
+            top: 130px;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 150px;
+            background: #ccc;
+            border-bottom-left-radius: 100%;
+            border-bottom-right-radius: 100%;
+            z-index: 100;
+            transform-origin: top;    /* 将中心点换到上面 */
+            transform: rotatez(-60deg);
+            transition: all 0.3s linear;   /* 让指针使用过渡摇摆 */ 
+        }
+        #btn{
+            padding: 5px 20px;
+            background: rgb(45, 136, 90);
+            color:aliceblue;
+            font-size: 16px;
+        }
+        @keyframes move{
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+        .huan{
+            transform: rotate(-23deg);
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">btn</button>
+    <div class="pin"></div>
+    <div class="biground">
+        <div class="minround"></div>
+    </div>
+    <script>
+        var oMinround = document.getElementsByClassName('minround')[0];
+        var oPin = document.getElementsByClassName('pin')[0];
+        var flag = true;
+        btn.onclick = function () {
+            if(flag) {
+                flag = false;
+                oPin.className = 'pin huan';
+                oMinround.style.animationPlayState = 'running';
+            }else {
+                flag = true;
+                oPin.className = 'pin';
+                oMinround.style.animationPlayState = 'paused';
+            }
+        }
+    </script>
+</body>
+</html>

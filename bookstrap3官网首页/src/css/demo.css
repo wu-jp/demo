@@ -1,0 +1,216 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.container .navbar-header .navbar-brand,
+.container .navbar-collapse ul li a{
+    color: #563d7c;
+}
+.container .navbar-default{
+    background-color: #fff;
+    border: #fff;
+}
+
+.container .navbar{
+    margin-bottom: 0;
+}
+.masthead{
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+}
+.masthead .container{
+    /* width: 970px; */
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.masthead .logo{
+    display: block;
+    background-color: transparent;
+    border: 1px solid #cdbfe3;
+    width: 144px;
+    height: 144px;
+    font-size: 108px;
+    line-height: 140px;
+    font-weight: 500;
+    color: #fff;
+    cursor: default;
+    border-radius: 15px;
+    margin: 0 auto 30px;
+}
+.masthead .lead{
+    margin: 0 auto 30px;
+    color: #fff;
+    font-size: 30px;
+}
+.masthead .lead .lead-down{
+    color: #fff;
+    font-size: 23px;
+    border: 1px solid #cdbfe3;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    padding: 15px 30px;
+}
+.masthead .lead .lead-down:hover{
+    background-color: #fff;
+    color: #563d7c;
+    text-decoration: blink;
+}
+.masthead .version{
+    margin-top: -5px;
+    margin-bottom: 30px;
+    color: #9783b9;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #5c3794;
+}
+.masthead .container .tuijian .tuijian-qd{
+    border: 1px solid #fff;
+    border-radius: 6px;
+    color: #563d7c;
+    background-color: #fff;
+    padding: 10px 20px;
+    letter-spacing: 3px;
+    font-size: 20px;
+    
+}
+.masthead .tuijian .tuijian-qd:hover{
+    background-color: #563d7c;
+    color: #fff;
+    text-decoration: blink;
+}
+.masthead .container .tuijian p{
+    margin-top: 15px;
+}
+.masthead .container .tuijian-pqd{
+    margin-top: 10px;
+    color: #ada5bd;
+    font-size: 16px;
+}
+.masthead .tuijian-pqd:hover{
+    color: #cecad6;
+    text-decoration: blink;
+}
+/* 媒体查询 */
+
+@media (max-width: 992px){
+    .masthead .lead{
+        font-size: 24px;
+        width: 85%;
+    }   
+}
+@media (max-width: 768px){
+    .masthead .lead{
+        font-size: 20px;
+        width: 90%;
+    }   
+}
+@media (max-width: 480px){
+    .masthead .lead .lead-down{
+        display: block;
+        text-align: center;
+    }   
+}
+@media (max-width: 480px){
+    .masthead .container .tuijian .tuijian-qd{
+        display: block;
+        text-align: center;
+    }   
+}
+
+.featurette{
+    padding: 100px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.featurette .container{
+    text-align: center;
+}
+.featurette h2{
+    font-size: 40px;
+    color: #333;
+    text-align: center;
+    font-weight: 400;
+}
+.featurette .lead{
+    margin-bottom: 20px;
+    font-weight: 300;
+    max-width: 80%;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;  
+}
+.featurette hr{
+    width: 100px;
+    margin: 40px auto;
+}
+.featurette .row img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.featurette .row p,h3{
+    text-align: center;
+}
+.featurette .row p{
+    font-size: 16px;
+}
+.featurette .btn{
+    color: #563d7c;
+    border: 1px solid #563d7c;
+}
+.featurette .btn:hover{
+    color: #fff;
+    background-color: #563d7c;  
+}
+/* 媒体查询 */
+@media (max-width: 768px){
+    .featurette h2{
+        font-size: 30px;
+    }   
+}
+
+
+.featurette .container .half-rule {
+    width: 100px;
+    margin: 100px auto 30px;
+}
+.featurette .container .wangzhang a{
+    font-size: 16px;
+}
+.featurette .container .wangzhang a:hover{
+    color: #563d7c;
+    text-decoration: blink;
+}
+.featurette .container .btn{
+    color: #563d7c;
+    border: 1px solid #563d7c;
+}
+.featurette .container .btn:hover{
+    color: #fff;
+    background-color: #563d7c;  
+}
+
+
+.footer{
+    background-color: #2a2730;
+}
+.footer .container{
+    max-width: 80%;
+    padding: 50px 0;
+}
+.footer .container ul li{
+    display: inline;
+    margin: 10px 20px;
+}
+.footer .container ul li a{
+    color: #fff
+}
+.footer .container p{
+    margin-left: 20px;
+    color: #99979c;
+}
